@@ -2,6 +2,7 @@ db:
   image: mongo
   ports:
     - "27017:27017"
+  net: icw-shared
 web:
   build: .
   ports:
@@ -13,3 +14,4 @@ web:
     - FLASK_DEBUG=1
   command:
     flask run --host=0.0.0.0 --port=5000
+  net: icw-shared
