@@ -1,18 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, send_file
 import sys
 
-app = Flask(__name__, template_folder='../client/dist', static_folder='../client/dist/static')
+app = Flask(__name__, static_folder='../template/static')
 app.url_map.strict_slashes = False
 
-try:
-    sys.argv.index("production")
-    app.debug = False
-except:
-    app.debug = True
-
-@app.route('/')
+@app.route('/', methods=["GET"])
 def index():
-    return render_template('index.html')
+    return send_file("../template/index.html")
 
 if __name__ == '__main__':
-    app.run(port=8050)
+    app.run(port=5000, debug=True)

@@ -1,0 +1,15 @@
+db:
+  image: mongo
+  ports:
+    - "27017:27017"
+web:
+  build: .
+  ports:
+    - "5000:5000"
+  volumes:
+    - "./server:/app"
+  environment:
+    - FLASK_APP=main.py
+    - FLASK_DEBUG=1
+  command:
+    flask run --host=0.0.0.0 --port=5000
