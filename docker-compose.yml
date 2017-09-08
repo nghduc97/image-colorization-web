@@ -1,17 +1,38 @@
-db:
-  image: mongo
-  ports:
-    - "27017:27017"
-  net: icw-shared
-web:
-  build: .
-  ports:
-    - "5000:5000"
-  volumes:
-    - "./server:/app"
-  environment:
-    - FLASK_APP=main.py
-    - FLASK_DEBUG=1
-  command:
-    flask run --host=0.0.0.0 --port=5000
-  net: icw-shared
+version: '2'
+
+services:
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      icw-backend:
+        ipv4_address: 172.28.0.3
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./server:/app"
+      - "./client/dist:/template"
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_DEBUG=1
+      - MONGO_HOST_NAME=172.28.0.2
+      - MONGO_PORT=27017
+      - MONGO_COLLECTION=icw
+    command:
+      flask run --host=0.0.0.0 --port=5000
+    networks:
+      icw-backend:
+        ipv4_address: 172.28.0.2
+    depends_on:
+      - db
+
+networks:
+  icw-backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
