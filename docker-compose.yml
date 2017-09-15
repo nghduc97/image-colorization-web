@@ -16,6 +16,7 @@ services:
       - "./server:/app"
       - "./client/dist:/template"
     environment:
+      - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
       - MONGO_HOST_NAME=172.28.0.3
