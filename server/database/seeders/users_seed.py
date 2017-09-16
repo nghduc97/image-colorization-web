@@ -4,9 +4,7 @@ from werkzeug.security import generate_password_hash
 
 def users_seed():
     # indexes
-    mongo['users'].create_index([
-        ('username', ASCENDING)
-    ])
+    mongo['users'].create_index('username', unique=True)
 
     # data
     users = []
