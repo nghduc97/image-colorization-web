@@ -1,10 +1,16 @@
 from flask import Flask, send_file, redirect
 from utils import Logger
+from database.seeders import reset_database
 
 # init
 app = Flask(__name__, static_folder='../template/static')
 app.url_map.strict_slashes = False
 Logger.init(app)
+
+# CLI
+@app.cli.command()
+def resetdb():
+    reset_database()
 
 # index route
 @app.route('/', methods=["GET"])
