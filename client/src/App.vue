@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
-    <toolbar ref="toolbar" :sidebarRef="sidebarRef" :auth="auth"></toolbar>
+    <toolbar ref="toolbar" :sidebarRef="sidebarRef"></toolbar>
     <sidebar ref="sidebar"></sidebar>
     <router-view></router-view>
   </div>
@@ -20,7 +20,6 @@ export default {
   },
   data () {
     return {
-      auth: null,
       sidebarRef: this.sidebarRef
     }
   },
@@ -32,4 +31,7 @@ export default {
 </script>
 
 <style>
+  .md-raised {
+    box-shadow: none !important;
+  }
 </style>

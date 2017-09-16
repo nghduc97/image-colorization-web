@@ -5,7 +5,7 @@
 export default {
   name: 'dashboard',
   mounted () {
-    this.$store.commit('changePage', 'Dashboard')
+    this.$store.commit('nav/changePage', 'Dashboard')
   }
 }
 </script>

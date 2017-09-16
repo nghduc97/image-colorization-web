@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import NavModule from './modules/NavModule'
+import AuthModule from './modules/AuthModule'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    navModule: NavModule
+    nav: NavModule,
+    auth: AuthModule
   },
-  strict: true
+  strict: process.env.NODE_ENV !== 'production'
 })
