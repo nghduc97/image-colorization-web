@@ -1,5 +1,7 @@
-from pymongo import MongoClient
+''' MongoDB driver setup '''
+
 import os
+from pymongo import MongoClient
 
 MONGO_HOST_NAME = os.environ["MONGO_HOST_NAME"]
 MONGO_PORT = os.environ["MONGO_PORT"]

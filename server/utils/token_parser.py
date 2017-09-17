@@ -1,18 +1,21 @@
-from . import mongo
-from bson import json_util
-from jwt.api_jws import encode, decode
-import os
-from utils import Logger
+''' make and parse JWT, compatible with BSON '''
 
-_secret_key = os.environ['FLASK_JWT_KEY']
+import os
+import jwt.api_jws as jws
+from bson import json_util
+
+
+_SECRET_KEY = os.environ['FLASK_JWT_KEY']
+
 
 def make_token(data):
     json_data = json_util.dumps(data)
-    return encode(json_data.encode(), _secret_key)
+    return jws.encode(json_data.encode(), _SECRET_KEY)
+
 
 def parse_token(token):
     try:
-        json_data = decode(token, _secret_key)
+        json_data = jws.decode(token, _SECRET_KEY)
         return json_util.loads(json_data.decode())
     except Exception:
         return None

@@ -1,6 +1,8 @@
-from pymongo import ASCENDING
+''' seed "users" collection '''
+
 from utils import mongo
 from werkzeug.security import generate_password_hash
+
 
 def users_seed():
     # indexes
