@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import LoginDialog from './LoginDialog'
 
 export default {
@@ -31,9 +31,11 @@ export default {
     })
   },
   computed: {
-    ...mapGetters({
-      pageName: 'nav/pageName',
-      userInfo: 'auth/userInfo'
+    ...mapState('nav', {
+      pageName: 'currentPage'
+    }),
+    ...mapState('auth', {
+      userInfo: 'userInfo'
     })
   },
   components: {

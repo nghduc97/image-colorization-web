@@ -15,6 +15,9 @@ import Sidebar from './components/Sidebar'
 
 export default {
   name: 'app',
+  created () {
+    this.$store.dispatch('auth/verifyToken')
+  },
   mounted () {
     this.sidebarRef = this.$refs.sidebar
   },

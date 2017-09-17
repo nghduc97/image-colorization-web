@@ -30,17 +30,15 @@ export default {
     close () {
       this.$refs.loginDialog.close()
     },
-    tryLogin () {
-      this.$store
-        .dispatch('auth/login', {
-          username: this.username,
-          password: this.password
-        })
-        .then(userInfo => {
-          this.username = ''
-          this.password = ''
-          this.close()
-        })
+    async tryLogin () {
+      await this.$store.dispatch('auth/login', {
+        username: this.username,
+        password: this.password
+      })
+
+      this.username = ''
+      this.password = ''
+      this.close()
     }
   },
   data () {

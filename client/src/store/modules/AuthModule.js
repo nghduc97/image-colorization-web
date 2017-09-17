@@ -3,47 +3,47 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    authData: null
-  },
-  getters: {
-    userInfo: state => state.authData ? state.authData['userInfo'] : null
+    userInfo: null
   },
   mutations: {
     receiveToken (state, data) {
-      state.authData = data
-      axios.defaults.headers.common['Authorization'] = data['token']
-      console.log(axios.defaults.headers.common)
+      localStorage.setItem('authToken', data['token'])
+      delete data['token']
+      state.userInfo = data
     },
     clearToken (state) {
-      state.authData = null
-      axios.defaults.headers.common['Authorization'] = null
+      localStorage.removeItem('authToken')
+      state.userInfo = null
     }
   },
   actions: {
-    login (context, data) {
-      return new Promise((resolve, reject) => {
-        console.log(axios.defaults.headers.common)
-        console.log(data)
-        axios.post('/user/login', data)
-          .then(data => {
-            console.log(data)
-            context.commit('receiveToken', data)
-            resolve(context.getters['userInfo'])
-          })
-          .catch(err => reject(err))
+    login (context, loginData) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const data = await axios.post('/user/login', loginData)
+          console.log(data)
+          context.commit('receiveToken', data)
+          resolve(context.state['userInfo'])
+        } catch (err) {
+          console.error(err)
+        }
       })
-
-      // return new Promise((resolve, reject) => {
-      //   context.commit('receiveToken', {
-      //     'token': '123',
-      //     'userInfo': { 'display_name': 'abc' }
-      //   })
-
-      //   resolve(context.getters['userInfo'])
-      // })
     },
     logout (context) {
       context.commit('clearToken')
+    },
+    async verifyToken (context) {
+      const token = localStorage.getItem('authToken')
+      if (token == null) return
+
+      try {
+        const data = await axios.get('/user')
+        context.commit('receiveToken', data)
+        console.log('Valid token found in local storage')
+      } catch (err) {
+        console.warn('Invalid token found in local storage')
+        console.warn(err)
+      }
     }
   }
 }

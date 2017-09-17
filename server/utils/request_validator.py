@@ -3,6 +3,7 @@
 from sys import maxsize
 from flask import abort
 
+
 def check_has_fields(json_data, fields):
     for field in fields:
         if (field not in json_data) or (json_data[field] is None):
