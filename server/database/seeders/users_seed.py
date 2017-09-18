@@ -1,7 +1,7 @@
 ''' seed "users" collection '''
 
-from utils import mongo
 from werkzeug.security import generate_password_hash
+from server.utils.mongo import mongo
 
 
 def users_seed():

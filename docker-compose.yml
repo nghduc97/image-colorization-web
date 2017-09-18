@@ -13,7 +13,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - "./server:/app"
+      - "./server:/server"
       - "./client/dist:/template"
     environment:
       - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP

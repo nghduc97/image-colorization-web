@@ -2,8 +2,11 @@
 
 from flask import Blueprint, request, abort, current_app
 from bson import json_util
-from utils import mongo, make_token, check_has_fields, parse_token, token_response
 from werkzeug.security import generate_password_hash, check_password_hash
+from server.utils.mongo import mongo
+from server.utils.request_validator import check_has_fields
+from server.utils.response import token_response
+from server.utils.token_parser import make_token, parse_token
 
 
 user_blueprint = Blueprint('user', __name__, url_prefix='/api/user')

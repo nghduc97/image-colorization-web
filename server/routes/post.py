@@ -1,7 +1,7 @@
 ''' /api/post routes controller '''
 
 from flask import Blueprint
-from utils import mongo
+from server.utils.mongo import mongo
 
 
 post_blueprint = Blueprint("post", __name__, url_prefix="/api/post")
