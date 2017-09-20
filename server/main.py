@@ -28,8 +28,8 @@ def to_index(err):
 # modify headers before sending responses
 @app.after_request
 def map_response(res):
-    res.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     if os.environ['FLASK_DEBUG'] == '1':
+        res.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
         res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 

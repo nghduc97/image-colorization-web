@@ -20,9 +20,6 @@
 
 <script>
 export default {
-  username: '',
-  password: '',
-
   methods: {
     open () {
       this.$refs.loginDialog.open()
@@ -43,8 +40,8 @@ export default {
   },
   data () {
     return {
-      username: this.username,
-      password: this.password
+      username: '',
+      password: ''
     }
   }
 }

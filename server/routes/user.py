@@ -5,7 +5,7 @@ from bson import json_util
 from werkzeug.security import generate_password_hash, check_password_hash
 from server.utils.mongo import mongo
 from server.utils.request_validator import check_has_fields
-from server.utils.response import token_response
+from server.utils.response import ejson_response
 from server.utils.token_parser import make_token, parse_token
 
 
@@ -30,7 +30,7 @@ def verify_user():
     if user_info is None:
         abort(400, 'invalid_token')
 
-    return token_response({
+    return ejson_response({
         'token': make_token(username), ''' renew token '''
         'user_info': user_info
     })
@@ -51,12 +51,14 @@ def login():
     }, {
         'hashed_password': 1
     })
-    if check_password_hash(user['hashed_password'], data['password']):
+    if user is not None \
+        and check_password_hash(user['hashed_password'], data['password']):
+
         user_info = _get_user_info_by_id(user['_id'])
         current_app.logger.info('user login, id: ' + str(user['_id']))
 
         # return token and user-infos
-        return token_response({
+        return ejson_response({
             'token': make_token(data['username']),
             'user_info': user_info
         })
@@ -94,7 +96,7 @@ def register():
 
     # return authentication token and user info
     user_info = _get_user_info_by_id(result.inserted_id)
-    return token_response({
+    return ejson_response({
         'token': make_token(user_info['username']),
         'user_info': user_info
     })

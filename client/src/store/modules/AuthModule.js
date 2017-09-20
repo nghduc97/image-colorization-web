@@ -21,7 +21,6 @@ export default {
       return new Promise(async (resolve, reject) => {
         try {
           const data = await axios.post('/user/login', loginData)
-          console.log(data)
           context.commit('receiveToken', data)
           resolve(context.state['userInfo'])
         } catch (err) {
