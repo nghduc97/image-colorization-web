@@ -17,6 +17,17 @@ export default {
     }
   },
   actions: {
+    register (context, registerData) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const data = await axios.post('/user/register', registerData)
+          context.commit('receiveToken', data)
+          resolve(context.state['userInfo'])
+        } catch (err) {
+          console.error(err)
+        }
+      })
+    },
     login (context, loginData) {
       return new Promise(async (resolve, reject) => {
         try {

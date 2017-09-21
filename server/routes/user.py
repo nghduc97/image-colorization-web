@@ -31,7 +31,7 @@ def verify_user():
         abort(400, 'invalid_token')
 
     return ejson_response({
-        'token': make_token(username), ''' renew token '''
+        'token': make_token(username),
         'user_info': user_info
     })
 
