@@ -37,13 +37,12 @@ def verify_user():
 
 
 @user_blueprint.route('/login', methods=['POST'])
-@ejson.ejson_route
 def login():
     if 'Authorization' in request.headers:
         abort(400, 'already_logged_in')
 
     # validate data
-    data = request.data
+    data = ejson.parse(request.data)
     check_has_fields(data, ['username', 'password'])
 
     # check for correct username & password
@@ -70,7 +69,7 @@ def login():
 @user_blueprint.route('/register', methods=['POST'])
 def register():
     # validation
-    data = request.data
+    data = ejson.parse(request.data)
     check_has_fields(data, ['username', 'password', 'display_name'])
 
     # no length limit for development
