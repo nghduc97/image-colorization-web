@@ -9,17 +9,22 @@ if (process.env.API_HOST) {
 }
 
 // set types for HTTP
-axios.defaults.headers.common['Content-Type'] = 'application/json'
+axios.defaults.headers.common['Content-Type'] = 'application/json-extended'
 
-// add authToken if available
+// map request
 axios.interceptors.request
-  .use(config => {
+  .use(req => {
+    // add authToken if available
     const authToken = localStorage.getItem('authToken')
     if (authToken) {
-      config.headers['Authorization'] = authToken
+      req.headers['Authorization'] = authToken
     }
 
-    return config
+    // BSON -> EJSON
+    req.data = EJSON.serialize(req.data)
+
+    // return
+    return req
   })
 
 // map response

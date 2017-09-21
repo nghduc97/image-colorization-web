@@ -1,8 +1,8 @@
 ''' types of response '''
 
 from flask import Response
-from bson import json_util
 from .token_parser import make_token
+from server.utils import ejson
 
 
 def token_response(obj):
@@ -13,6 +13,6 @@ def token_response(obj):
 def ejson_response(obj):
     ''' Extended json type response '''
     return Response(
-        json_util.dumps(obj, json_options=json_util.CANONICAL_JSON_OPTIONS),
+        ejson.stringify(obj),
         mimetype='application/json-extended'
     )

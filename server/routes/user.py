@@ -1,12 +1,12 @@
 ''' /api/user routes controller '''
 
 from flask import Blueprint, request, abort, current_app
-from bson import json_util
 from werkzeug.security import generate_password_hash, check_password_hash
 from server.utils.mongo import mongo
 from server.utils.request_validator import check_has_fields
 from server.utils.response import ejson_response
 from server.utils.token_parser import make_token, parse_token
+from server.utils import ejson
 
 
 user_blueprint = Blueprint('user', __name__, url_prefix='/api/user')
@@ -37,17 +37,18 @@ def verify_user():
 
 
 @user_blueprint.route('/login', methods=['POST'])
+@ejson.ejson_route
 def login():
     if 'Authorization' in request.headers:
         abort(400, 'already_logged_in')
 
-    # get and validate data
-    data = json_util.loads(request.data)
+    # validate data
+    data = request.data
     check_has_fields(data, ['username', 'password'])
 
     # check for correct username & password
     user = mongo['users'].find_one({
-        'username': data['username']
+        'username': str(data['username'])
     }, {
         'hashed_password': 1
     })
@@ -69,7 +70,7 @@ def login():
 @user_blueprint.route('/register', methods=['POST'])
 def register():
     # validation
-    data = request.json
+    data = request.data
     check_has_fields(data, ['username', 'password', 'display_name'])
 
     # no length limit for development
