@@ -1,5 +1,5 @@
 <template>
-  <md-card style="max-width: 500px; margin: 10px auto;">
+  <md-card class="register-form">
     <md-toolbar>
       <h2 class="md-title">Register to Upload Your Own Images</h2>
     </md-toolbar>
@@ -7,15 +7,15 @@
       <md-card-content>
         <md-input-container md-inline>
           <label>Display Name</label>
-          <md-input v-model="displayName"></md-input>
+          <md-input v-model="displayName" @keyup.enter.native="tryRegister"></md-input>
         </md-input-container>
         <md-input-container md-inline>
           <label>Username</label>
-          <md-input v-model="username"></md-input>
+          <md-input v-model="username" @keyup.enter.native="tryRegister"></md-input>
         </md-input-container>
         <md-input-container md-inline>
           <label>Password</label>
-          <md-input type="password" v-model="password"></md-input>
+          <md-input type="password" v-model="password" @keyup.enter.native="tryRegister"></md-input>
         </md-input-container>
       </md-card-content>
       <md-card-actions>
@@ -47,5 +47,8 @@ export default {
 </script>
 
 <style>
-
+  .register-form {
+    max-width: 500px;
+    margin: 10px auto;
+  }
 </style>

@@ -16,13 +16,13 @@
         <md-icon>explore</md-icon>
         <span>Explore</span>
       </md-list-item>
-      <md-divider class="md-dense"></md-divider>
-      <md-list-item>
+      <md-divider v-if="userInfo" class="md-dense"></md-divider>
+      <md-list-item v-if="userInfo">
         <md-ink-ripple />
         <md-icon>cloud_upload</md-icon>
         <span>Your Uploads</span>
       </md-list-item>
-      <md-list-item>
+      <md-list-item v-if="userInfo">
         <md-ink-ripple />
         <md-icon>forum</md-icon>
         <span>Your Comments</span>
@@ -32,12 +32,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'sidebar',
   methods: {
     toggle () {
       this.$refs.sidebar.toggle()
     }
+  },
+  computed: {
+    ...mapState('auth', ['userInfo'])
   }
 }
 </script>

@@ -4,7 +4,7 @@
       <md-icon>menu</md-icon>
     </md-button>
 
-    <h1 class="md-title" style="flex: 1">{{ pageName }}</h1>
+    <h1 class="md-title" style="flex: 1">{{ currentPage }}</h1>
 
     <md-button v-if="userInfo" @click="logout">Logout</md-button>
     <md-button id="login-button" v-else @click="showLoginDialog">Login</md-button>
@@ -31,12 +31,8 @@ export default {
     })
   },
   computed: {
-    ...mapState('nav', {
-      pageName: 'currentPage'
-    }),
-    ...mapState('auth', {
-      userInfo: 'userInfo'
-    })
+    ...mapState('nav', ['currentPage']),
+    ...mapState('auth', ['userInfo'])
   },
   components: {
     'login-dialog': LoginDialog
