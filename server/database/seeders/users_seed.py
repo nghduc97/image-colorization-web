@@ -5,8 +5,11 @@ from server.utils.mongo import mongo
 
 
 def users_seed():
+    # get collection
+    collection = mongo['users']
+
     # indexes
-    mongo['users'].create_index('username', unique=True)
+    collection.create_index('username', unique=True)
 
     # data
     users = []
@@ -18,4 +21,4 @@ def users_seed():
             'authority': 4
         })
 
-    mongo['users'].insert_many(users)
+    collection.insert_many(users)

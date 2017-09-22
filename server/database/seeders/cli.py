@@ -2,6 +2,7 @@
 
 from server.utils.mongo import mongo_client, MONGO_COLLECTION
 from .users_seed import users_seed
+from .posts_seed import posts_seed
 
 
 def reset_database():
@@ -10,3 +11,4 @@ def reset_database():
 
     # seeds
     users_seed()
+    posts_seed()
