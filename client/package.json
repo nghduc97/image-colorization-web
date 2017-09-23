@@ -8,8 +8,8 @@
   ],
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
+    "dev": "node build/dev-server.js", // need to pass server's hostname as argument
+    "start": "node build/dev-server.js", // need to pass server's hostname as argument
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },

@@ -3,5 +3,5 @@ var prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_HOST: '"192.168.99.100:5000"'
+  API_HOST: process.length < 2 ? null : `"${process.argv[2]}"`
 })

@@ -33,6 +33,7 @@ def map_response(res):
         res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
+
 # register blueprints
 from .routes.all import blueprints
 for bp in blueprints:
