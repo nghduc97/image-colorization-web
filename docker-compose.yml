@@ -6,13 +6,15 @@ services:
     networks:
       icw-backend:
         ipv4_address: 172.28.0.3
+    volumes:
+      - mongo-data:/data/db
   web:
     build: .
     ports:
-      - "5000:5000"
+      - 5000:5000
     volumes:
-      - "./server:/server"
-      - "./client/dist:/template"
+      - ./server:/server
+      - ./client/dist:/template
     environment:
       - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP
       - FLASK_APP=main.py
@@ -35,3 +37,6 @@ networks:
       config:
         - subnet: 172.28.0.0/16
           gateway: 172.28.0.1
+
+volumes:
+  mongo-data: # to persist data, virtualbox file sync driver won't work with MongoDB engine on Windows & Mac
