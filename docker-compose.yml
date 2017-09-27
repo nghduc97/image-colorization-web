@@ -2,6 +2,7 @@ version: '2'
 
 services:
   db:
+    privileged: true
     image: mongo:3.4
     networks:
       icw-backend:
@@ -9,6 +10,7 @@ services:
     volumes:
       - mongo-data:/data/db
   web:
+    privileged: true
     build: .
     ports:
       - 5000:5000

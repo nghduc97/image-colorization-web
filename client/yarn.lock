@@ -961,6 +961,13 @@ bson@^1.0.1, bson@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/bson/-/bson-1.0.4.tgz#93c10d39eaa5b58415cbc4052f3e53e562b0b72c"
 
+buefy@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.5.2.tgz#142c994bb44cfd13d7aa8650b38a7241f4199674"
+  dependencies:
+    bulma "^0.5.1"
+    vue "^2.4.2"
+
 buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
@@ -980,6 +987,10 @@ builtin-modules@^1.0.0:
 builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
+
+bulma@^0.5.1:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.5.3.tgz#be93afb6246192505c30df3f9c1c29a97d319a13"
 
 caller-path@^0.1.0:
   version "0.1.0"

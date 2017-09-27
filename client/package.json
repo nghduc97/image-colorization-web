@@ -8,14 +8,15 @@
   ],
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js", // need to pass server's hostname as argument
-    "start": "node build/dev-server.js", // need to pass server's hostname as argument
+    "dev": "node build/dev-server.js",
+    "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.16.2",
     "bson": "^1.0.4",
+    "buefy": "^0.5.2",
     "lodash": "^4.17.4",
     "mongodb-extended-json": "^1.10.0",
     "node-sass": "^4.5.3",
