@@ -1,6 +1,8 @@
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 
+--- TABLES ---
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     display_name VARCHAR(50),
@@ -49,3 +51,15 @@ CREATE TABLE post_tag (
     tag VARCHAR(20),
     PRIMARY KEY (post_id, tag)
 );
+
+--- INDEXES ---
+
+CREATE INDEX ON users (username);
+
+CREATE INDEX ON posts (hidden, type, time);
+CREATE INDEX ON posts (hidden, type, total_claps);
+CREATE INDEX ON posts (uploader_id, time);
+CREATE INDEX ON posts (uploader_id, total_claps);
+
+CREATE INDEX ON comments (user_id);
+CREATE INDEX ON comments (post_id);
