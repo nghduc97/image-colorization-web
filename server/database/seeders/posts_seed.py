@@ -1,12 +1,12 @@
 ''' seed "posts" table '''
 
 from datetime import datetime, timedelta
-from database.queries import do_query
+import database.queries as db
 
 
 def posts_seed():
     for i in range(8):
-        do_query('insert_image_post', {
+        db.do_query('insert_image_post', {
             'hidden': False,
             'time': (datetime.utcnow() - timedelta(hours=i)),
             'uploader_id': i + 1,
@@ -16,7 +16,7 @@ def posts_seed():
         })
 
     for i in range(8, 10):
-        do_query('insert_discuss_post', {
+        db.do_query('insert_discuss_post', {
             'hidden': False,
             'time': (datetime.utcnow() - timedelta(hours=i)),
             'uploader_id': i + 1,

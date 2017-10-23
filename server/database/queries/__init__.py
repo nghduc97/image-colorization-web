@@ -31,6 +31,14 @@ def do_query(name, params):
     return conn.execute(sql.text(queries[name]), params)
 
 
+def query_fetchone(name, params):
+    return dict(do_query(name, params).fetchone())
+
+
+def query_fetchall(name, params):
+    return [dict(row) for row in do_query(name, params).fetchall()]
+
+
 def do_schema_scripts():
     path = os.path.join(os.path.dirname(__file__), 'schemas/schema.sql')
     query = file.read_text(path)

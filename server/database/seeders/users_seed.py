@@ -1,12 +1,12 @@
 ''' seed "users" table '''
 
 import werkzeug.security as security
-from database.queries import do_query
+import database.queries as db
 
 
 def users_seed():
     for i in range(10):
-        do_query('insert_user', {
+        db.do_query('insert_user', {
             'display_name': 'Dummy #{}'.format(i),
             'authority': 4,
             'username': 'dummy{}'.format(i),

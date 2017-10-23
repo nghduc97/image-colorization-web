@@ -1,11 +1,15 @@
 import os
 from flask import Flask, send_file, redirect
+import flask_jwt_extended as jwt
 from database.seeders import reset_database
 from routes import blueprints
 
 # init
 app = Flask(__name__, static_folder='../template/static')
 app.url_map.strict_slashes = False
+
+app.config['JWT_SECRET_KEY'] = os.environ['FLASK_JWT_KEY']
+jwt.JWTManager(app)
 
 
 # CLI
