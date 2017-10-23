@@ -32,11 +32,11 @@ CREATE TABLE discuss_posts (
 );
 
 CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
     post_id INT REFERENCES posts(id),
     time TIMESTAMP,
-    content TEXT,
-    PRIMARY KEY (user_id, post_id)
+    content TEXT
 );
 
 CREATE TABLE claps (
@@ -56,10 +56,10 @@ CREATE TABLE post_tag (
 
 CREATE INDEX ON users (username);
 
-CREATE INDEX ON posts (hidden, type, time);
-CREATE INDEX ON posts (hidden, type, total_claps);
-CREATE INDEX ON posts (uploader_id, time);
-CREATE INDEX ON posts (uploader_id, total_claps);
+CREATE INDEX ON posts (hidden, type, time DESC);
+CREATE INDEX ON posts (hidden, type, total_claps DESC);
+CREATE INDEX ON posts (uploader_id, time DESC);
+CREATE INDEX ON posts (uploader_id, total_claps DESC);
 
-CREATE INDEX ON comments (user_id);
 CREATE INDEX ON comments (post_id);
+CREATE INDEX ON comments (time);
