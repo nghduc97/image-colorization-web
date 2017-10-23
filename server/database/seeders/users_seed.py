@@ -1,24 +1,14 @@
-''' seed "users" collection '''
+''' seed "users" table '''
 
-from werkzeug.security import generate_password_hash
-from server.utils.mongo import mongo
+import werkzeug.security as security
+from database.queries import do_query
 
 
 def users_seed():
-    # get collection
-    collection = mongo['users']
-
-    # indexes
-    collection.create_index('username', unique=True)
-
-    # data
-    users = []
     for i in range(10):
-        users.append({
-            'username': 'dummy{}'.format(i),
-            'hashed_password': generate_password_hash('dummy{}'.format(i)),
+        do_query('insert_user', {
             'display_name': 'Dummy #{}'.format(i),
-            'authority': 4
+            'authority': 4,
+            'username': 'dummy{}'.format(i),
+            'hashed_password': security.generate_password_hash('dummy{}'.format(i), salt_length=32),
         })
-
-    collection.insert_many(users)

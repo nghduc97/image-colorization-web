@@ -3,12 +3,16 @@ version: '2'
 services:
   db:
     privileged: true
-    image: mongo:3.4
+    image: postgres:10.0
     networks:
-      icw-backend:
-        ipv4_address: 172.28.0.3
+      - icw-backend
+    ports:
+      - 5432:5432
     volumes:
       - mongo-data:/data/db
+    environment:
+      - POSTGRES_USER=icw
+      - POSTGRES_PASSWORD=icw
   web:
     privileged: true
     build: .
@@ -21,24 +25,19 @@ services:
       - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
-      - MONGO_HOST_NAME=172.28.0.3
-      - MONGO_PORT=27017
-      - MONGO_COLLECTION=icw
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=icw
+      - POSTGRES_PASSWORD=icw
     command:
       flask run --host=0.0.0.0 --port=5000
     networks:
-      icw-backend:
-        ipv4_address: 172.28.0.2
+      - icw-backend
     depends_on:
       - db
 
 networks:
   icw-backend:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
-          gateway: 172.28.0.1
 
 volumes:
   mongo-data: # to persist data, virtualbox file sync driver won't work with MongoDB engine on Windows & Mac

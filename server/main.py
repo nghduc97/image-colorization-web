@@ -1,6 +1,7 @@
 import os
 from flask import Flask, send_file, redirect
-from .database.seeders.cli import reset_database
+from database.seeders import reset_database
+from routes import blueprints
 
 # init
 app = Flask(__name__, static_folder='../template/static')
@@ -35,7 +36,6 @@ def map_response(res):
 
 
 # register blueprints
-from .routes.all import blueprints
 for bp in blueprints:
     app.register_blueprint(bp)
 

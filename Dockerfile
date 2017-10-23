@@ -1,5 +1,6 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.6
-RUN apt-get -y update && \
-    pip install -U PyJWT && \
-    pip install -U pymongo
+RUN pip install -U \
+    flask-jwt-extended \
+    sqlalchemy \
+    pygresql
 WORKDIR /server
