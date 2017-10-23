@@ -9,7 +9,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - mongo-data:/data/db
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=icw
       - POSTGRES_PASSWORD=icw
@@ -40,4 +40,4 @@ networks:
     driver: bridge
 
 volumes:
-  mongo-data: # to persist data, virtualbox file sync driver won't work with MongoDB engine on Windows & Mac
+  db-data:
