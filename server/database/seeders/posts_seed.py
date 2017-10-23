@@ -7,7 +7,7 @@ import database.queries as db
 def posts_seed():
     for i in range(8):
         db.do_query('insert_image_post', {
-            'hidden': False,
+            'hidden': i < 2,
             'time': (datetime.utcnow() - timedelta(hours=i)),
             'uploader_id': i + 1,
             'title': 'Post #{}'.format(i),
