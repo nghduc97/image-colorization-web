@@ -38,8 +38,9 @@ def register():
 
     user = db.query_fetchone('insert_user', {
         'username': username,
-        'password': password,
+        'hashed_password': security.generate_password_hash(password, salt_length=32),
         'display_name': display_name,
+        'authority': 4,
     })
 
     return _create_user_response(user)
