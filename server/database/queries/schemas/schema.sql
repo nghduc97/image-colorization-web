@@ -54,7 +54,7 @@ CREATE TABLE post_tag (
 
 --- INDEXES ---
 
-CREATE INDEX ON users (username);
+CREATE UNIQUE INDEX ON users (username);
 
 CREATE INDEX ON posts (hidden, type, time DESC);
 CREATE INDEX ON posts (hidden, type, total_claps DESC);
