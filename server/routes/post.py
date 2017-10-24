@@ -16,16 +16,12 @@ def get_top_posts():
     offset = int(flask.request.args.get('offset', 0))
     limit = int(flask.request.args.get('limit', 5))
 
-    post_type_name = ''
-    if post_type == 1:
-        post_type_name = 'image'
-    elif post_type == 2:
-        post_type_name = 'discuss'
-    else:
+    if post_type not in [1, 2]:
         flask.abort(400, 'Invalid "type" argument, value="{}"'.format(post_type))
 
-    query = 'get_{0}_posts_order_by_{1}'.format(post_type_name, order_by)
+    query = 'get_posts_order_by_{}'.format(order_by)
     posts = db.query_fetchall(query, {
+        'type': post_type,
         'offset': offset,
         'limit': limit,
     })
