@@ -1,20 +1,12 @@
-''' seed "claps" collection '''
+''' seed "claps" table '''
 
-from datetime import datetime, timedelta
-from bson import ObjectId
-from server.utils.mongo import mongo
+import database.queries as db
 
 
-def comments_seed():
-    # get collection
-    collection = mongo['claps']
-
-    # indexes
-    collection.create_index({'user_id': 1, 'post_id': 1})
-
-    # data
-    claps = []
+def claps_seed():
     for i in range(100):
-        claps.append()
-
-    collection.insert_many(claps)
+        db.do_query('upsert_clap', {
+            'user_id': i % 10 + 1,
+            'post_id': i // 10 + 1,
+            'amount': i % 60,
+        })

@@ -1,110 +1,59 @@
 ''' /api/user routes controller '''
 
-from flask import Blueprint, request, abort, current_app
-from werkzeug.security import generate_password_hash, check_password_hash
-from server.utils.mongo import mongo
-from server.utils.request_validator import check_has_fields
-from server.utils.response import ejson_response
-from server.utils.token_parser import make_token, parse_token
-from server.utils import ejson
+from datetime import timedelta
+import flask
+import flask_jwt_extended as jwt
+import werkzeug.security as security
+import database.queries as db
 
 
-user_blueprint = Blueprint('user', __name__, url_prefix='/api/user')
-
-
-USER_INFO_INCLUDE = {
-    '_id': 0,
-    'username': 1,
-    'display_name': 1,
-    'authority': 1
-}
+user_blueprint = flask.Blueprint('user', __name__, url_prefix='/api/user')
 
 
 @user_blueprint.route('/', methods=['GET'])
-def verify_user():
-    check_has_fields(request.headers, ['Authorization'])
-
-    token = request.headers['Authorization']
-    username = parse_token(token)
-    user_info = _get_user_info_by_username(username)
-    if user_info is None:
-        abort(400, 'invalid_token')
-
-    return ejson_response({
-        'token': make_token(username),
-        'user_info': user_info
-    })
+@jwt.jwt_required
+def get_user_info():
+    user_id = jwt.get_jwt_identity()
+    user = db.query_fetchone('get_user_by_id', {'id': user_id})
+    return _create_user_response(user)
 
 
 @user_blueprint.route('/login', methods=['POST'])
 def login():
-    if 'Authorization' in request.headers:
-        abort(400, 'already_logged_in')
+    body = flask.request.get_json()
+    username = body['username']
+    password = body['password']
 
-    # validate data
-    data = ejson.parse(request.data)
-    check_has_fields(data, ['username', 'password'])
-
-    # check for correct username & password
-    user = mongo['users'].find_one({
-        'username': str(data['username'])
-    }, {
-        'hashed_password': 1
-    })
-    if user is not None \
-        and check_password_hash(user['hashed_password'], data['password']):
-
-        user_info = _get_user_info_by_id(user['_id'])
-        current_app.logger.info('user login, id: ' + str(user['_id']))
-
-        # return token and user-infos
-        return ejson_response({
-            'token': make_token(data['username']),
-            'user_info': user_info
-        })
-
-    abort(400, 'invalid_password_or_username')
+    user = db.query_fetchone('get_user_by_username', {'username': username})
+    security.check_password_hash(user['hashed_password'], password)
+    return _create_user_response(user)
 
 
 @user_blueprint.route('/register', methods=['POST'])
 def register():
-    # validation
-    data = ejson.parse(request.data)
-    check_has_fields(data, ['username', 'password', 'display_name'])
+    body = flask.request.get_json()
+    username = body['username']
+    password = body['password']
+    display_name = body['display_name']
 
-    # no length limit for development
-    # check_field_length(data, 'username', 6, 32)
-    # check_field_length(data, 'password', 6, 32)
-
-    user = _get_user_info_by_username(data['username'])
-    if user is not None:
-        abort(400, 'username already taken')
-
-    # create user
-    hashed_password = generate_password_hash(data['password'], salt_length=30)
-    result = mongo['users'].insert_one({
-        'username': data['username'],
-        'hashed_password': hashed_password,
-        'display_name': data['display_name'],
-        'authority': 4
+    user = db.query_fetchone('insert_user', {
+        'username': username,
+        'hashed_password': security.generate_password_hash(password, salt_length=32),
+        'display_name': display_name,
+        'authority': 4,
     })
 
-    if not result.acknowledged:
-        abort(500, 'fail_to_write_to_database')
+    return _create_user_response(user)
 
-    current_app.logger.info('user register, id: ' + str(result.inserted_id))
 
-    # return authentication token and user info
-    user_info = _get_user_info_by_id(result.inserted_id)
-    return ejson_response({
-        'token': make_token(user_info['username']),
-        'user_info': user_info
+def _create_user_response(user):
+    return flask.jsonify({
+        'token': jwt.create_access_token(
+            identity=user['id'],
+            expires_delta=timedelta(days=1),
+        ),
+        'user_info': {
+            'display_name': user['display_name'],
+            'authority': user['authority'],
+        },
     })
-
-
-def _get_user_info_by_id(user_id):
-    return mongo['users'].find_one(user_id, USER_INFO_INCLUDE)
-
-
-def _get_user_info_by_username(username):
-    return mongo['users'].find_one({'username': username}, USER_INFO_INCLUDE)
