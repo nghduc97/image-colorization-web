@@ -12,7 +12,9 @@ url = 'postgresql+pygresql://{0}:{1}@{2}:{3}/{0}'.format(
     'db',
     os.environ['POSTGRES_PORT'],
 )
-conn = create_engine(url).connect().execution_options(autocommit=True)
+conn = create_engine(url, echo=(os.environ['FLASK_DEBUG'] == '1')) \
+    .connect() \
+    .execution_options(autocommit=True)
 
 # cache queries in memory
 queries = dict()

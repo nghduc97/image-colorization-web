@@ -67,3 +67,27 @@ def comment_on_post():
         'time': time,
     })
     return flask.jsonify(result)
+
+
+@post_blueprint.route('/set-tag', methods=['POST'])
+@jwt.jwt_required
+def set_tag_of_post():
+    body = flask.request.get_json()
+    user_id = jwt.get_jwt_identity()
+    post_id = int(body['post_id'])
+    tags = [{'post_id': post_id, 'tag': tag_name} for tag_name in body['tags']]
+
+    # check if is owner or moderator and above
+    post = db.query_fetchone('get_post_by_id', {'id': post_id})
+    user = db.query_fetchone('get_user_by_id', {'id': user_id})
+    if user_id != post['uploader_id'] and user['authority'] > 2:
+        flask.abort(401)
+
+    # delete all created post_tag
+    db.do_query('delete_post_tags_by_post_id', {
+        'post_id': post_id,
+    })
+
+    # insert new
+    db.do_query('insert_tag', tags)
+    return flask.jsonify({'post_id': post_id})
