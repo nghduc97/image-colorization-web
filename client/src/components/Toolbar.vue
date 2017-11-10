@@ -1,30 +1,45 @@
 <template>
   <nav class="navbar" v-if="userInfo">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <img src="/static/Logomakr_3ZFAxR.png">
-        </a>
+      <a class="navbar-item" href="/">
+        <img src="/static/Logomakr_3ZFAxR.png">
+      </a>
+      <div class="navbar-burger burger" @click="menuClasses['is-active'] ^= true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="navbar-menu">
+    <div v-bind:class="menuClasses">
       <div class="navbar-end">
-        <div class="navbar-item">
-        </div>
+        <a class="navbar-item" @click="logout">
+          Logout
+        </a>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import router from '../router'
+import { mapState } from 'vuex'
 
 export default {
+  data () {
+    return {
+      menuClasses: {
+        'navbar-menu': true,
+        'is-active': false
+      }
+    }
+  },
   methods: {
-    ...mapActions({
-      logout: 'auth/logout'
-    })
+    logout () {
+      this.$store.dispatch('auth/logout')
+      router.replace('/')
+    }
   },
   computed: {
-    ...mapState('nav', ['currentPage']),
     ...mapState('auth', ['userInfo'])
   }
 }
