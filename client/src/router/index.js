@@ -31,6 +31,9 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+
+  // set page title
+  document.title = 'ICW - ' + to.name
 })
 
 export default router
