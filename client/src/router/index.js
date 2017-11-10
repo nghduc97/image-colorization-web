@@ -6,6 +6,7 @@ import Welcome from '../components/Welcome'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -24,6 +25,9 @@ router.beforeEach((to, from, next) => {
   // prevent entering forum without authentication
   if (to.name !== 'Welcome' && !localStorage.getItem('authToken')) {
     next('/')
+  } else
+  if (to.name === 'Welcome' && localStorage.getItem('authToken')) {
+    next('/dashboard')
   } else {
     next()
   }

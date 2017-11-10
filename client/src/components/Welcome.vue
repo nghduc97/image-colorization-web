@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import router from '../router'
+
 export default {
   data () {
     return {
@@ -75,6 +77,7 @@ export default {
           'password': this.password
         })
         this.$refs['authModal'].close()
+        router.replace('/dashboard')
       } catch (err) {
         console.error(err)
       }
@@ -87,6 +90,7 @@ export default {
           'display_name': this.displayName
         })
         this.$refs['authModal'].close()
+        router.replace('/dashboard')
       } catch (err) {
         console.error(err)
       }
@@ -108,5 +112,9 @@ export default {
   .b-tabs {
     background-color: white;
     border-radius: 4px;
+
+    /deep/ .tabs {
+      line-height: 2.5;
+    }
   }
 </style>
