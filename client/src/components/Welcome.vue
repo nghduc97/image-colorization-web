@@ -100,21 +100,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .logo img {
-    height: 5em;
-    margin-bottom: 3em;
-  }
+.logo img {
+  height: 5em;
+  margin-bottom: 3em;
+}
 
-  .show-login-button {
-    color: #7957d5;
-  }
+.show-login-button {
+  color: #7957d5;
+}
 
-  .b-tabs {
-    background-color: white;
-    border-radius: 4px;
+.b-tabs {
+  background-color: white;
+  border-radius: 4px;
 
-    /deep/ .tabs {
-      line-height: 2.5;
-    }
+  /deep/ .tabs {
+    line-height: 2.5;
   }
+}
 </style>

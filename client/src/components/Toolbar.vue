@@ -12,9 +12,26 @@
     </div>
     <div v-bind:class="menuClasses">
       <div class="navbar-end">
-        <a class="navbar-item" @click="logout">
-          Logout
-        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            {{ userInfo['display_name'] }}
+          </a>
+          <div class="navbar-dropdown is-right is-boxed">
+            <router-link class="navbar-item" to="/">
+              My Posts
+            </router-link>
+            <router-link class="navbar-item" to="/">
+              My Comments
+            </router-link>
+            <hr class="dropdown-divider">
+            <router-link class="navbar-item" to="/">
+              Settings
+            </router-link>
+            <a class="navbar-item" @click="logout">
+              Logout
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -45,8 +62,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .el-header {
-    background-color: #B3C0D1;
-  }
+<style scoped lang="scss">
+.navbar-dropdown {
+  box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.1) !important;
+}
 </style>
