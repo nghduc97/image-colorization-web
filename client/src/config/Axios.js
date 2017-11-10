@@ -1,5 +1,4 @@
 import axios from 'axios'
-import EJSON from 'mongodb-extended-json'
 
 // set API_HOST
 if (process.env.API_HOST) {
@@ -9,19 +8,16 @@ if (process.env.API_HOST) {
 }
 
 // set types for HTTP
-axios.defaults.headers.common['Content-Type'] = 'application/json-extended'
+axios.defaults.headers.common['Content-Type'] = 'application/json'
 
 // map request
 axios.interceptors.request
   .use(req => {
     // add authToken if available
-    const authToken = localStorage.getItem('authToken')
+    const authToken = 'Bearer ' + localStorage.getItem('authToken')
     if (authToken) {
       req.headers['Authorization'] = authToken
     }
-
-    // BSON -> EJSON
-    req.data = EJSON.serialize(req.data)
 
     // return
     return req
@@ -29,7 +25,4 @@ axios.interceptors.request
 
 // map response
 axios.interceptors.response
-  .use(res => {
-    const data = EJSON.deserialize(res.data)
-    return data
-  })
+  .use(res => res.data)

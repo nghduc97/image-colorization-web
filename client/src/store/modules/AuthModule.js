@@ -8,8 +8,7 @@ export default {
   mutations: {
     receiveToken (state, data) {
       localStorage.setItem('authToken', data['token'])
-      delete data['token']
-      state.userInfo = data
+      state.userInfo = data['user_info']
     },
     clearToken (state) {
       localStorage.removeItem('authToken')
@@ -24,7 +23,7 @@ export default {
           context.commit('receiveToken', data)
           resolve(context.state['userInfo'])
         } catch (err) {
-          console.error(err)
+          reject(err)
         }
       })
     },
@@ -35,7 +34,7 @@ export default {
           context.commit('receiveToken', data)
           resolve(context.state['userInfo'])
         } catch (err) {
-          console.error(err)
+          reject(err)
         }
       })
     },
@@ -53,6 +52,7 @@ export default {
       } catch (err) {
         console.warn('Invalid token found in local storage')
         console.warn(err)
+        localStorage.removeItem('authToken')
       }
     }
   }

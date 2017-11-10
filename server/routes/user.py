@@ -25,8 +25,10 @@ def login():
     password = body['password']
 
     user = db.query_fetchone('get_user_by_username', {'username': username})
-    security.check_password_hash(user['hashed_password'], password)
-    return _create_user_response(user)
+    if security.check_password_hash(user['hashed_password'], password):
+        return _create_user_response(user)
+
+    flask.abort(400, 'incorrect username or password')
 
 
 @user_blueprint.route('/register', methods=['POST'])

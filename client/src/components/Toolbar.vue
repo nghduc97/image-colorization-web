@@ -1,31 +1,24 @@
 <template>
-  <md-toolbar>
-    <md-button class="md-icon-button" @click="toggleSideBar">
-      <md-icon>menu</md-icon>
-    </md-button>
-
-    <h1 class="md-title" style="flex: 1">{{ currentPage }}</h1>
-
-    <md-button v-if="userInfo" @click="logout">Logout</md-button>
-    <md-button id="login-button" v-else @click="showLoginDialog">Login</md-button>
-
-    <login-dialog ref="loginDialog"></login-dialog>
-  </md-toolbar>
+  <nav class="navbar" v-if="userInfo">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="/static/Logomakr_3ZFAxR.png">
+        </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import LoginDialog from './LoginDialog'
 
 export default {
-  props: ['sidebarRef'],
   methods: {
-    toggleSideBar () {
-      this.sidebarRef.toggle()
-    },
-    showLoginDialog () {
-      this.$refs.loginDialog.open()
-    },
     ...mapActions({
       logout: 'auth/logout'
     })
@@ -33,12 +26,12 @@ export default {
   computed: {
     ...mapState('nav', ['currentPage']),
     ...mapState('auth', ['userInfo'])
-  },
-  components: {
-    'login-dialog': LoginDialog
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+  .el-header {
+    background-color: #B3C0D1;
+  }
 </style>
