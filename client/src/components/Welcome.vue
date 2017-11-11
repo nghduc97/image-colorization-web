@@ -9,7 +9,7 @@
           <h2 class="subtitle">
             Welcome to ICW, a forum to try out AI colorization engine.
           </h2>
-          <a class="button is-light is-medium show-login-button" @click="showAuthModal = true">
+          <a class="button is-medium is-primary is-inverted" @click="showAuthModal = true">
             Login and Join Us
           </a>
         </div>
@@ -103,10 +103,6 @@ export default {
 .logo img {
   height: 5em;
   margin-bottom: 3em;
-}
-
-.show-login-button {
-  color: #7957d5;
 }
 
 .b-tabs {
