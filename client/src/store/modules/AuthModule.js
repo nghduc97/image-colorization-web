@@ -54,6 +54,14 @@ export default {
         console.warn(err)
         localStorage.removeItem('authToken')
       }
+    },
+    async userInfoChange (context, changeInfo) {
+      try {
+        const data = await axios.post('/user/info-change', changeInfo)
+        context.commit('receiveToken', data)
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }

@@ -1,16 +1,16 @@
 <template>
   <nav class="navbar" v-if="userInfo">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+      <router-link class="navbar-item" to="/">
         <img src="/static/Logomakr_3ZFAxR.png">
-      </a>
+      </router-link>
       <div class="navbar-burger burger" @click="menuClasses['is-active'] ^= true">
         <span></span>
         <span></span>
         <span></span>
       </div>
     </div>
-    <div v-bind:class="menuClasses">
+    <div v-bind:class="menuClasses" @click="menuClasses['is-active'] = false">
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
@@ -24,7 +24,7 @@
               My Comments
             </router-link>
             <hr class="dropdown-divider">
-            <router-link class="navbar-item" to="/">
+            <router-link class="navbar-item" to="/settings">
               Settings
             </router-link>
             <a class="navbar-item" @click="logout">

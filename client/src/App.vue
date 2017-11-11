@@ -19,5 +19,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.input:focus {
+  box-shadow: none;
+}
 </style>
