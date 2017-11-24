@@ -15,19 +15,29 @@
     <section class="section">
       <h1 class="title">Popular Discusses</h1>
       <hr>
-      <discuss-list api-route="/post/top?type=2&sortby=clap"></discuss-list>
+      <post-list
+        api-route="/post/top"
+        :post-type="2"
+        sort-by="clap"
+      >
+      </post-list>
     </section>
     <section class="section">
       <h1 class="title">Latest Discusses</h1>
       <hr>
-      <discuss-list api-route="/post/top?type=2&sortby=time"></discuss-list>
+      <post-list
+        api-route="/post/top"
+        :post-type="2"
+        sort-by="time"
+      >
+      </post-list>
     </section>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import DiscussList from './DiscussList'
+import PostList from './PostList'
 
 export default {
   name: 'dashboard',
@@ -35,7 +45,7 @@ export default {
     ...mapState('auth', ['userInfo'])
   },
   components: {
-    'discuss-list': DiscussList
+    'post-list': PostList
   }
 }
 </script>

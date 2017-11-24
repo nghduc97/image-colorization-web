@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style lang="scss">
+// font awesome
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
 // bulma config
 @import "~bulma/sass/utilities/_all";
 $primary: #2196f3;

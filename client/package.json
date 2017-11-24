@@ -16,7 +16,9 @@
   "dependencies": {
     "axios": "^0.16.2",
     "buefy": "^0.5.4",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vuex": "^2.4.0"
