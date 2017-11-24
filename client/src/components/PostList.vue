@@ -9,7 +9,7 @@
     </discuss-post>
     <div class="card">
       <footer>
-          <a class="card-footer-item" @click="loadMore">View More</a>
+        <a class="card-footer-item" @click="loadMore">View More</a>
       </footer>
     </div>
   </section>
