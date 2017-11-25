@@ -36,6 +36,7 @@ def map_response(res):
     if os.environ['FLASK_DEBUG'] == '1':
         res.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
         res.headers['Access-Control-Allow-Origin'] = '*'
+        res.headers['Access-Control-Allow-Methods'] = 'OPTIONS, GET, POST, PUT'
     return res
 
 

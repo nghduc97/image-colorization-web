@@ -8,7 +8,9 @@ if (process.env.API_HOST) {
 }
 
 // set types for HTTP
-axios.defaults.headers.common['Content-Type'] = 'application/json'
+const headers = axios.defaults.headers.common
+headers['Content-Type'] = 'application/json'
+headers['Accept'] = 'application/json'
 
 // map request
 axios.interceptors.request

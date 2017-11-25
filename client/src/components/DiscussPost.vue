@@ -9,8 +9,8 @@
             {{ post['content'] }}
           </p>
 
-          <a>
-            {{ post['total_claps'] }}
+          <a @click="clap">
+            {{ post['total_claps'] + pendingClap }}
             <b-icon icon="sign-language" size="is-small"></b-icon>
           </a>
           <a>
@@ -24,10 +24,12 @@
 </template>
 
 <script>
+import PostMixin from './Mixins/PostMixin'
+
 export default {
-  props: {
-    post: Object
-  }
+  mixins: [
+    PostMixin
+  ]
 }
 </script>
 
