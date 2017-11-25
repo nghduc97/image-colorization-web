@@ -9,7 +9,7 @@
     </discuss-post>
     <div class="card">
       <footer>
-        <a class="card-footer-item" @click="loadMore">View More</a>
+        <a class="card-footer-item button is-primary is-inverted" @click="loadMore">View More</a>
       </footer>
     </div>
   </section>
@@ -83,6 +83,9 @@ export default {
 
 <style scoped lang="scss">
 .card {
+  max-width: 800px;
   margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

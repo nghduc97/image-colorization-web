@@ -34,4 +34,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.box {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
