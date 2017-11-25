@@ -9,12 +9,12 @@
             {{ post['content'] }}
           </p>
 
-          <a @click="clap">
-            {{ post['total_claps'] + pendingClap }}
+          <a class="button is-primary is-inverted" @click="clap">
+            <span>{{ post['total_claps'] + pendingClap }}</span>
             <b-icon icon="sign-language" size="is-small"></b-icon>
           </a>
-          <a>
-            Comments
+          <a class="button is-primary is-inverted" @click="showComments">
+            <span>Comments</span>
             <b-icon icon="comments" size="is-small"></b-icon>
           </a>
         </div>
