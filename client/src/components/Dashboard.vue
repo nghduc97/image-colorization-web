@@ -12,25 +12,32 @@
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <h1 class="title">Popular Images</h1>
+      <hr>
+      <post-list :post-type="1" sort-by="clap">
+      </post-list>
+    </section>
+
+    <section class="section">
+      <h1 class="title">Latest Images</h1>
+      <hr>
+      <post-list :post-type="1" sort-by="clap">
+      </post-list>
+    </section>
+
     <section class="section">
       <h1 class="title">Popular Discusses</h1>
       <hr>
-      <post-list
-        api-route="/post/top"
-        :post-type="2"
-        sort-by="clap"
-      >
+      <post-list :post-type="2" sort-by="clap">
       </post-list>
     </section>
+
     <section class="section">
       <h1 class="title">Latest Discusses</h1>
       <hr>
-      <post-list
-        api-route="/post/top"
-        :post-type="2"
-        sort-by="time"
-      >
-      </post-list>
+      <post-list :post-type="2" sort-by="time"></post-list>
     </section>
   </section>
 </template>

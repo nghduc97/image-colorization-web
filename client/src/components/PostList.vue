@@ -1,5 +1,12 @@
 <template>
   <section>
+    <image-post
+      v-for="post in posts"
+      v-if="post['type'] == 1"
+      :key="post['id']"
+      :post="post"
+      >
+    </image-post>
     <discuss-post
       v-for="post in posts"
       v-if="post['type'] == 2"
@@ -19,6 +26,7 @@
 import Axios from 'axios'
 import router from '../router'
 import DiscussPost from './DiscussPost'
+import ImagePost from './ImagePost'
 
 export default {
   props: {
@@ -34,9 +42,12 @@ export default {
       type: Number,
       default: 0
     },
+    apiRoute: {
+      type: String,
+      default: '/post/top'
+    },
     sortBy: String,
     postType: Number,
-    apiRoute: String,
     redirect: String
   },
   data () {
@@ -76,7 +87,8 @@ export default {
     this.loadPosts()
   },
   components: {
-    'discuss-post': DiscussPost
+    'discuss-post': DiscussPost,
+    'image-post': ImagePost
   }
 }
 </script>
