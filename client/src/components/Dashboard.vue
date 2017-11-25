@@ -23,7 +23,7 @@
     <section class="section">
       <h1 class="title">Latest Images</h1>
       <hr>
-      <post-list :post-type="1" sort-by="clap">
+      <post-list :post-type="1" sort-by="time">
       </post-list>
     </section>
 
