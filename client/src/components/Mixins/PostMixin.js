@@ -13,12 +13,12 @@ export default Vue.mixin({
   },
   methods: {
     async uploadClap () {
-      await Axios.put('/post/clap', {
+      const data = await Axios.put('/post/clap', {
         'post_id': this.post['id'],
         'amount': this.pendingClap
       })
 
-      this.post['total_claps'] += this.pendingClap
+      this.post['total_claps'] += data['amount']
       this.pendingClap = 0
       this.clapUpload = null
     },

@@ -15,4 +15,4 @@ new_clap AS (
 UPDATE posts
 SET total_claps = total_claps + (SELECT SUM(amount) FROM new_clap) - COALESCE((SELECT SUM(amount) FROM old_clap), 0)
 WHERE posts.id = :post_id
-RETURNING *;
+RETURNING ((SELECT SUM(amount) FROM new_clap) - COALESCE((SELECT SUM(amount) FROM old_clap), 0)) AS amount;
