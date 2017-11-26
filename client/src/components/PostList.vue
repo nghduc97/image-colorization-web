@@ -67,7 +67,6 @@ export default {
             'limit': this.limit
           }
         })
-        console.log(newPosts)
 
         this.posts.push(...newPosts)
       } catch (err) {

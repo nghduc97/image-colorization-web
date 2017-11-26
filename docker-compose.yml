@@ -21,6 +21,7 @@ services:
     volumes:
       - ./server:/server
       - ./client/dist:/template
+      - ./storage:/storage
     environment:
       - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP
       - FLASK_APP=main.py

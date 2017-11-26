@@ -12,7 +12,7 @@ def posts_seed():
             'uploader_id': i + 1,
             'title': 'Post #{}'.format(i),
             'total_claps': 0,
-            'status': 'complete',
+            'status': 'done',
         })
 
     for i in range(8, 10):

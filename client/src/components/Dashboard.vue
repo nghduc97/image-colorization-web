@@ -53,7 +53,7 @@
                 <b-input v-model="newPostTitle" placeholder="Title" required></b-input>
               </b-field>
               <b-field>
-                <b-upload v-model="newPostFiles" drag-drop accept=".jpg,.jpeg,.png">
+                <b-upload v-model="newPostFiles" drag-drop accept=".jpg,.jpeg,.png" @input="onImageSelect">
                   <section class="section">
                     <div class="content has-text-centered">
                       <p>
@@ -66,7 +66,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button is-primary is-fullwidth">Post</button>
+              <button class="button is-primary is-fullwidth" @click="postImage">Post</button>
             </footer>
           </b-tab-item>
 
@@ -100,7 +100,8 @@ export default {
       showAddPost: false,
       newPostTitle: '',
       newPostContent: '',
-      newPostFiles: []
+      newPostFiles: [],
+      newPostFileUrl: ''
     }
   },
   computed: {
@@ -113,6 +114,23 @@ export default {
         'title': this.newPostTitle,
         'content': this.newPostContent
       })
+    },
+    onImageSelect () {
+      const file = this.newPostFiles[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        this.newPostFileUrl = reader.result
+      }
+    },
+    postImage () {
+      const data = {
+        'type': 1,
+        'title': this.newPostTitle,
+        'file_b64': this.newPostFileUrl
+      }
+
+      Axios.post('/post', data)
     }
   },
   components: {

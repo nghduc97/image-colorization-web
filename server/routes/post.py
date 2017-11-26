@@ -4,6 +4,7 @@ from datetime import datetime
 import flask
 import flask_jwt_extended as jwt
 import database.queries as db
+import utils.file as file
 
 
 post_blueprint = flask.Blueprint("post", __name__, url_prefix="/api/post")
@@ -24,13 +25,17 @@ def create_post():
     }
 
     if body['type'] == 1:
-        params['status'] = ''
+        params['status'] = 'queue'
         query = 'insert_image_post'
     else:
         params['content'] = body['content']
         query = 'insert_discuss_post'
 
-    return db.query_fetchone(query, params)
+    data = db.query_fetchone(query, params)
+    if body['type'] == 1:
+        file.write_base64_image_to_file(str(data['post_id']), body['file_b64'])
+
+    return flask.jsonify(data)
 
 
 @post_blueprint.route('/top', methods=['GET'])
