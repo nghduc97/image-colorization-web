@@ -55,4 +55,12 @@ $link-focus-border: $primary;
 .input:focus {
   box-shadow: none;
 }
+
+textarea {
+  resize: none !important;
+}
+
+input[type="file"] {
+  display: none !important;
+}
 </style>

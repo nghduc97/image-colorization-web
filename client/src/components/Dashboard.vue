@@ -39,17 +39,81 @@
       <hr>
       <post-list :post-type="2" sort-by="time"></post-list>
     </section>
+
+    <button class="fab button is-accent" @click="showAddPost = true">
+      <b-icon icon="plus"></b-icon>
+    </button>
+
+    <b-modal :active.sync="showAddPost">
+      <div class="modal-card has-text-centered">
+        <b-tabs>
+          <b-tab-item label="Image">
+            <section class="modal-card-body">
+              <b-field>
+                <b-input v-model="newPostTitle" placeholder="Title" required></b-input>
+              </b-field>
+              <b-field>
+                <b-upload v-model="newPostFiles" drag-drop accept=".jpg,.jpeg,.png">
+                  <section class="section">
+                    <div class="content has-text-centered">
+                      <p>
+                        <b-icon icon="upload" size="is-large"></b-icon>
+                      </p>
+                      <p>Drop your image here or click to upload</p>
+                    </div>
+                  </section>
+                </b-upload>
+              </b-field>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-primary is-fullwidth">Post</button>
+            </footer>
+          </b-tab-item>
+
+          <b-tab-item label="Discuss">
+            <section class="modal-card-body">
+              <b-field>
+                <b-input v-model="newPostTitle" placeholder="Title" required></b-input>
+              </b-field>
+              <b-field>
+                <b-input v-model="newPostContent" type="textarea" placeholder="Content" required></b-input>
+              </b-field>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-primary is-fullwidth" @click="postDiscuss">Post</button>
+            </footer>
+          </b-tab-item>
+        </b-tabs>
+      </div>
+    </b-modal>
   </section>
 </template>
 
 <script>
+import Axios from 'axios'
 import { mapState } from 'vuex'
 import PostList from './PostList'
 
 export default {
-  name: 'dashboard',
+  data () {
+    return {
+      showAddPost: false,
+      newPostTitle: '',
+      newPostContent: '',
+      newPostFiles: []
+    }
+  },
   computed: {
     ...mapState('auth', ['userInfo'])
+  },
+  methods: {
+    postDiscuss () {
+      Axios.post('/post', {
+        'type': 2,
+        'title': this.newPostTitle,
+        'content': this.newPostContent
+      })
+    }
   },
   components: {
     'post-list': PostList
@@ -57,8 +121,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .section {
   padding-bottom: 0;
+}
+
+.fab {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+
+.b-tabs {
+  background-color: white;
+  border-radius: 4px;
+
+  /deep/ .tabs {
+    line-height: 2.5;
+  }
 }
 </style>

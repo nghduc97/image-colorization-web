@@ -9,7 +9,31 @@ import database.queries as db
 post_blueprint = flask.Blueprint("post", __name__, url_prefix="/api/post")
 
 
-@post_blueprint.route('/top', methods=["GET"])
+@post_blueprint.route('/', methods=['POST'])
+@jwt.jwt_required
+def create_post():
+    body = flask.request.get_json()
+
+    query = ''
+    params = {
+        'hidden': False,
+        'time': datetime.utcnow(),
+        'uploader_id': jwt.get_jwt_identity(),
+        'title': body['title'],
+        'total_claps': 0,
+    }
+
+    if body['type'] == 1:
+        params['status'] = ''
+        query = 'insert_image_post'
+    else:
+        params['content'] = body['content']
+        query = 'insert_discuss_post'
+
+    return db.query_fetchone(query, params)
+
+
+@post_blueprint.route('/top', methods=['GET'])
 def get_top_posts():
     order_by = flask.request.args.get('sortby', 'time')
     post_type = int(flask.request.args.get('type', 1))
