@@ -20,7 +20,6 @@ services:
       - 5000:5000
     volumes:
       - ./server:/server
-      - ./client/dist:/template
       - ./storage:/storage
     environment:
       - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP

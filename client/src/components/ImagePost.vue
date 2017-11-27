@@ -2,9 +2,9 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-1by1" @click="showOriginal ^= true">
-        <img class="painted-image">
+        <img class="painted-image" :src="paintedImage">
         <transition name="fade">
-          <img class="original-image" v-show="showOriginal">
+          <img class="original-image" v-show="showOriginal" :src="originalImage">
         </transition>
       </figure>
     </div>
@@ -31,13 +31,21 @@
 </template>
 
 <script>
+import Axios from 'axios'
 import PostMixin from './Mixins/PostMixin'
 
 export default {
   data () {
     return {
-      showOriginal: true
+      showOriginal: true,
+      originalImage: '',
+      paintedImage: ''
     }
+  },
+  created () {
+    const common = Axios.defaults.baseURL + '/image'
+    this.originalImage = common + `/original/${this.post['id']}`
+    this.paintedImage = common + `/painted/${this.post['id']}`
   },
   mixins: [
     PostMixin
