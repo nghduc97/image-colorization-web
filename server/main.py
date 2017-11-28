@@ -39,6 +39,8 @@ def get_file_from_storage(path):
         if os.path.exists(path + '.' + ext):
             return flask.send_file(path + '.' + ext)
 
+    flask.abort(404)
+
 
 # modify headers before sending responses
 @app.after_request
