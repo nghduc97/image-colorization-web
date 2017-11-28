@@ -17,7 +17,7 @@ services:
     privileged: true
     build: ./server/
     ports:
-      - 5000:5000
+      - 80:80
     volumes:
       - ./server:/server
       - ./client/dist:/template
@@ -29,7 +29,7 @@ services:
       - POSTGRES_USER=icw
       - POSTGRES_PASSWORD=icw
     command:
-      flask run --host=0.0.0.0 --port=5000
+      flask run --host=0.0.0.0 --port=80
     networks:
       - icw-backend
     depends_on:

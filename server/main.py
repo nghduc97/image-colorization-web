@@ -36,7 +36,6 @@ def get_file_from_storage(path):
     path = '/storage/image_posts/{}'.format(path)
     exts = ['png', 'jpg', 'jpeg']
     for ext in exts:
-        flask.current_app.logger.info(path + '.' + ext)
         if os.path.exists(path + '.' + ext):
             return flask.send_file(path + '.' + ext)
 
