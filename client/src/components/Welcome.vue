@@ -79,7 +79,10 @@ export default {
         this.$refs['authModal'].close()
         router.push('/dashboard')
       } catch (err) {
-        console.error(err)
+        this.$toast.open({
+          message: 'Failed to login. Check for network, username and password.',
+          type: 'is-danger'
+        })
       }
     },
     async tryRegister () {
@@ -92,7 +95,10 @@ export default {
         this.$refs['authModal'].close()
         router.push('/dashboard')
       } catch (err) {
-        console.error(err)
+        this.$toast.open({
+          message: 'Failed to register. Network failure or username is already used.',
+          type: 'is-danger'
+        })
       }
     }
   }

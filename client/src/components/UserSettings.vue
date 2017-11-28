@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import Axios from 'axios'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -61,7 +62,18 @@ export default {
         this.accountSettings['new_password'] = ''
       }
     },
-    ...mapActions('auth', ['userInfoChange'])
+    async userInfoChange (changeInfo) {
+      try {
+        const data = await Axios.post('/user/info-change', changeInfo)
+        this.receiveToken(data)
+      } catch (err) {
+        this.$toast.open({
+          message: 'Network failure or incorrect current password.',
+          type: 'is-danger'
+        })
+      }
+    },
+    ...mapMutations('auth', ['receiveToken'])
   },
   watch: {
     'userInfo': function (val) {

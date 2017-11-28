@@ -55,14 +55,6 @@ export default {
         localStorage.removeItem('authToken')
         router.replace('/')
       }
-    },
-    async userInfoChange (context, changeInfo) {
-      try {
-        const data = await axios.post('/user/info-change', changeInfo)
-        context.commit('receiveToken', data)
-      } catch (err) {
-        console.error(err)
-      }
     }
   }
 }

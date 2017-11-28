@@ -70,7 +70,10 @@ export default {
 
         this.posts.push(...newPosts)
       } catch (err) {
-        console.error(err)
+        this.$toast.open({
+          message: 'Possible network failure.',
+          type: 'is-danger'
+        })
       }
     },
     loadMore () {
