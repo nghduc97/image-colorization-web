@@ -77,7 +77,7 @@ export default {
           'password': this.password
         })
         this.$refs['authModal'].close()
-        router.replace('/dashboard')
+        router.push('/dashboard')
       } catch (err) {
         console.error(err)
       }
@@ -90,7 +90,7 @@ export default {
           'display_name': this.displayName
         })
         this.$refs['authModal'].close()
-        router.replace('/dashboard')
+        router.push('/dashboard')
       } catch (err) {
         console.error(err)
       }

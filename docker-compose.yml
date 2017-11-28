@@ -23,7 +23,6 @@ services:
       - ./client/dist:/template
       - ./storage:/storage
     environment:
-      - FLASK_JWT_KEY=Ywupby0uOsIUENVboiQnqIfZS2IGMCEP
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
       - POSTGRES_PORT=5432

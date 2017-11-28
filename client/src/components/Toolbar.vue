@@ -53,7 +53,7 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('auth/logout')
-      router.replace('/')
+      router.push('/')
     }
   },
   computed: {

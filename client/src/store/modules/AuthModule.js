@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../../router'
 
 export default {
   namespaced: true,
@@ -50,9 +51,9 @@ export default {
         context.commit('receiveToken', data)
         console.log('Valid token found in local storage')
       } catch (err) {
-        console.warn('Invalid token found in local storage')
-        console.warn(err)
+        console.log('Invalid token found in local storage')
         localStorage.removeItem('authToken')
+        router.replace('/')
       }
     },
     async userInfoChange (context, changeInfo) {

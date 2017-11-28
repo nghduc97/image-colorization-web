@@ -8,7 +8,7 @@ from routes import blueprints
 app = flask.Flask(__name__, static_folder='../template/static')
 app.url_map.strict_slashes = False
 
-app.config['JWT_SECRET_KEY'] = os.environ['FLASK_JWT_KEY']
+app.config['JWT_SECRET_KEY'] = os.urandom(256)
 jwt.JWTManager(app)
 
 
