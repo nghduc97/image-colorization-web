@@ -36,6 +36,7 @@ export default {
 <style scoped lang="scss">
 .box {
   max-width: 800px;
+  margin-bottom: 1rem;
   margin-left: auto;
   margin-right: auto;
 }
