@@ -15,8 +15,8 @@
 
     <section class="section">
       <h1 class="title" style="display: inline">Popular Images</h1>
-      <b-tag class="is-accent">
-        <p class="is-6">Click on the image to see <strong>Magic</strong></p>
+      <b-tag class="is-accent is-medium">
+        <p>Click on the image to see <strong>Magic</strong></p>
       </b-tag>
       <hr>
       <post-list :post-type="1" sort-by="clap" :limit="4">
@@ -25,8 +25,8 @@
 
     <section class="section">
       <h1 class="title" style="display: inline">Latest Images</h1>
-      <b-tag class="is-accent">
-        <p class="is-6">Click on the image to see <strong>Magic</strong></p>
+      <b-tag class="is-accent is-medium">
+        <p>Click on the image to see <strong>Magic</strong></p>
       </b-tag>
       <hr>
       <post-list :post-type="1" sort-by="time" :limit="4">
