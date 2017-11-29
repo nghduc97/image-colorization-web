@@ -67,10 +67,7 @@ export default {
         const data = await Axios.post('/user/info-change', changeInfo)
         this.receiveToken(data)
       } catch (err) {
-        this.$toast.open({
-          message: 'Network failure or incorrect current password.',
-          type: 'is-danger'
-        })
+        this.errorMsg('Network failure or incorrect current password.')
       }
     },
     ...mapMutations('auth', ['receiveToken'])

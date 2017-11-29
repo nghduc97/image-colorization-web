@@ -76,10 +76,7 @@ export default {
         })
         location.replace('/dashboard')
       } catch (err) {
-        this.$toast.open({
-          message: 'Failed to login. Check for network, username and password.',
-          type: 'is-danger'
-        })
+        this.errorMsg('Failed to login. Check for network, username and password.')
       }
     },
     async tryRegister () {
@@ -91,10 +88,7 @@ export default {
         })
         location.replace('/dashboard')
       } catch (err) {
-        this.$toast.open({
-          message: 'Failed to register. Network failure or username is already used.',
-          type: 'is-danger'
-        })
+        this.errorMsg('Failed to register. Network failure or username is already used.')
       }
     }
   }
