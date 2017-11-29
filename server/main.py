@@ -5,7 +5,7 @@ from database.seeders import reset_database
 from routes import blueprints
 
 # init
-app = flask.Flask(__name__, static_folder='../template/static')
+app = flask.Flask(__name__)
 app.url_map.strict_slashes = False
 
 app.config['JWT_SECRET_KEY'] = os.urandom(256)
@@ -19,15 +19,10 @@ def resetdb():
 
 
 # index route
-@app.route('/', methods=["GET"])
-def index():
-    return flask.send_file("/template/index.html")
-
-
-# to index route on irregular URL
-@app.errorhandler(404)
-def to_index(err):
-    return flask.redirect('/')
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    return flask.send_file('./static/index.html')
 
 
 # route for storage, TODO: use nginx instead

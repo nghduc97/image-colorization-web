@@ -3,4 +3,5 @@ RUN pip install -U \
     flask-jwt-extended \
     sqlalchemy \
     pygresql
-WORKDIR /server
+COPY . /app
+WORKDIR /app
