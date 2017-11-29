@@ -7,21 +7,27 @@
             Dashboard
           </h1>
           <h2 class="subtitle">
-            Check out latest and most popular posts on the forum
+            Check out latest and most popular posts on the forum.
           </h2>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h1 class="title">Popular Images</h1>
+      <h1 class="title" style="display: inline">Popular Images</h1>
+      <b-tag class="is-accent">
+        <p class="is-6">Click on the image to see <strong>Magic</strong></p>
+      </b-tag>
       <hr>
       <post-list :post-type="1" sort-by="clap" :limit="4">
       </post-list>
     </section>
 
     <section class="section">
-      <h1 class="title">Latest Images</h1>
+      <h1 class="title" style="display: inline">Latest Images</h1>
+      <b-tag class="is-accent">
+        <p class="is-6">Click on the image to see <strong>Magic</strong></p>
+      </b-tag>
       <hr>
       <post-list :post-type="1" sort-by="time" :limit="4">
       </post-list>
@@ -160,5 +166,10 @@ export default {
   /deep/ .tabs {
     line-height: 2.5;
   }
+}
+
+@import "../color";
+.tag strong {
+  color: $white;
 }
 </style>

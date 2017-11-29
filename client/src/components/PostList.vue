@@ -111,7 +111,7 @@ export default {
     flex-wrap: wrap;
 
     .card {
-      width: 320px;
+      width: 360px;
     }
   }
 }
