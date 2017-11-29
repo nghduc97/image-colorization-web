@@ -1,0 +1,13 @@
+{
+    "npm.useRootDirectory": false,
+    "npm.includeDirectories": [
+        "${workspaceRoot}/client"
+    ],
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "python.autoComplete.extraPaths": [
+        "${workspaceRoot}/server"
+    ]
+}
+
