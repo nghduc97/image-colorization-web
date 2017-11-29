@@ -32,10 +32,6 @@ import ImagePost from './ImagePost'
 
 export default {
   props: {
-    owned: {
-      type: Number,
-      default: 0
-    },
     limit: {
       type: Number,
       default: 5

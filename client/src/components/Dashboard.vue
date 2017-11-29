@@ -14,7 +14,7 @@
     </section>
 
     <section class="section">
-      <h1 class="title" style="display: inline">Popular Images</h1>
+      <h1 class="title" style="display: inline-block">Popular Images</h1>
       <b-tag class="is-accent is-medium">
         <p>Click on the image to see <strong>Magic</strong></p>
       </b-tag>
@@ -24,7 +24,7 @@
     </section>
 
     <section class="section">
-      <h1 class="title" style="display: inline">Latest Images</h1>
+      <h1 class="title" style="display: inline-block">Latest Images</h1>
       <b-tag class="is-accent is-medium">
         <p>Click on the image to see <strong>Magic</strong></p>
       </b-tag>
@@ -114,8 +114,16 @@ export default {
     ...mapState('auth', ['userInfo'])
   },
   methods: {
+    async sendPost (data) {
+      try {
+        await Axios.post('/post', data)
+        this.showAddPost = false
+      } catch (err) {
+        this.errorMsg('Upload is either invalid or couldn\'t reach server.')
+      }
+    },
     postDiscuss () {
-      Axios.post('/post', {
+      this.sendPost({
         'type': 2,
         'title': this.newPostTitle,
         'content': this.newPostContent
@@ -130,13 +138,11 @@ export default {
       }
     },
     postImage () {
-      const data = {
+      this.sendPost({
         'type': 1,
         'title': this.newPostTitle,
         'file_b64': this.newPostFileUrl
-      }
-
-      Axios.post('/post', data)
+      })
     }
   },
   components: {

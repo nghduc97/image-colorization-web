@@ -17,7 +17,7 @@
             {{ userInfo['display_name'] }}
           </a>
           <div class="navbar-dropdown is-right is-boxed">
-            <router-link class="navbar-item" to="/">
+            <router-link class="navbar-item" to="/owned">
               My Posts
             </router-link>
             <router-link class="navbar-item" to="/">

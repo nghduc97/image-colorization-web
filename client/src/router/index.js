@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '../components/Dashboard'
 import Welcome from '../components/Welcome'
 import UserSettings from '../components/UserSettings'
+import OwnedPosts from '../components/OwnedPosts'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ const router = new Router({
       path: '/settings',
       name: 'Settings',
       component: UserSettings
+    },
+    {
+      path: '/owned',
+      name: 'owned',
+      component: OwnedPosts
     }
   ]
 })
