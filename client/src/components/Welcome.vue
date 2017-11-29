@@ -16,7 +16,7 @@
       </div>
     </section>
     <section>
-      <b-modal :active.sync="showAuthModal" ref="authModal">
+      <b-modal :active.sync="showAuthModal">
         <div class="modal-card has-text-centered">
           <b-tabs v-model="activeTab">
             <b-tab-item label="Login">
@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import router from '../router'
-
 export default {
   data () {
     return {
@@ -76,8 +74,7 @@ export default {
           'username': this.username,
           'password': this.password
         })
-        this.$refs['authModal'].close()
-        router.push('/dashboard')
+        location.replace('/dashboard')
       } catch (err) {
         this.$toast.open({
           message: 'Failed to login. Check for network, username and password.',
@@ -92,8 +89,7 @@ export default {
           'password': this.password,
           'display_name': this.displayName
         })
-        this.$refs['authModal'].close()
-        router.push('/dashboard')
+        location.replace('/dashboard')
       } catch (err) {
         this.$toast.open({
           message: 'Failed to register. Network failure or username is already used.',
