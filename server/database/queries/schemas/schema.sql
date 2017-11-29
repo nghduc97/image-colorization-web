@@ -58,8 +58,7 @@ CREATE UNIQUE INDEX ON users (username);
 
 CREATE INDEX ON posts (hidden, type, time DESC);
 CREATE INDEX ON posts (hidden, type, total_claps DESC);
-CREATE INDEX ON posts (uploader_id, time DESC);
-CREATE INDEX ON posts (uploader_id, total_claps DESC);
+CREATE INDEX ON posts (uploader_id, type, time DESC);
 
 CREATE INDEX ON comments (post_id);
 CREATE INDEX ON comments (time);

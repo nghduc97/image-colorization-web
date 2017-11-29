@@ -27,7 +27,7 @@ def create_post():
     if body['type'] == 1:
         params['status'] = 'queue'
         query = 'insert_image_post'
-    else:
+    elif body['type'] == 2:
         params['content'] = body['content']
         query = 'insert_discuss_post'
 
@@ -35,6 +35,23 @@ def create_post():
     if body['type'] == 1:
         file.write_base64_image_to_file(str(data['post_id']), body['file_b64'])
 
+    return flask.jsonify(data)
+
+
+@post_blueprint.route('/owned', methods=['GET'])
+@jwt.jwt_required
+def get_owned_posts():
+    post_type = int(flask.request.args.get('type', 1))
+    offset = int(flask.request.args.get('offset', 0))
+    limit = int(flask.request.args.get('limit', 5))
+    user_id = jwt.get_jwt_identity()
+
+    data = db.query_fetchall('get_posts_by_user', {
+        'type': post_type,
+        'offset': offset,
+        'limit': limit,
+        'user_id': user_id,
+    })
     return flask.jsonify(data)
 
 
