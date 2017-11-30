@@ -32,7 +32,7 @@
 <script>
 import Axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
-import Hero from './hero'
+import Hero from './Hero'
 
 export default {
   data () {
