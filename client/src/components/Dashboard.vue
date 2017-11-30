@@ -90,6 +90,7 @@
 
 <script>
 import Axios from 'axios'
+import router from '../router'
 import { mapState } from 'vuex'
 import PostList from './PostList'
 import Hero from './Hero'
@@ -110,8 +111,9 @@ export default {
   methods: {
     async sendPost (data) {
       try {
-        await Axios.post('/post', data)
+        const res = await Axios.post('/post', data)
         this.showAddPost = false
+        router.push(`/post/${res['post_id']}`)
       } catch (err) {
         this.errorMsg('Upload is either invalid or couldn\'t reach server.')
       }

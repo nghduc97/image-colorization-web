@@ -4,6 +4,7 @@ import Dashboard from '../components/Dashboard'
 import Welcome from '../components/Welcome'
 import UserSettings from '../components/UserSettings'
 import OwnedPosts from '../components/OwnedPosts'
+import PostDetail from '../components/PostDetail'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ const router = new Router({
       path: '/owned',
       name: 'owned',
       component: OwnedPosts
+    },
+    {
+      path: '/post/:postId',
+      name: 'Post',
+      component: PostDetail
     }
   ]
 })

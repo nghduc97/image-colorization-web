@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import router from '../../router'
 
 export default {
   props: {
@@ -27,6 +28,9 @@ export default {
       // throttle
       if (this.clapUpload) clearTimeout(this.clapUpload)
       this.clapUpload = setTimeout(() => this.uploadClap(), 1000)
+    },
+    toDetailPage (postId) {
+      router.push(`/post/${postId}`)
     }
   }
 }

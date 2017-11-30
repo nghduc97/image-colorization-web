@@ -2,9 +2,9 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-1by1" @click="showOriginal ^= true">
-        <img class="painted-image" :src="paintedImage">
+        <img class="painted-image" :src="imgUrls.paintedImage">
         <transition name="fade">
-          <img class="original-image" v-show="showOriginal" :src="originalImage">
+          <img class="original-image" v-show="showOriginal" :src="imgUrls.originalImage">
         </transition>
       </figure>
     </div>
@@ -19,7 +19,7 @@
               <span>{{ post['total_claps'] + pendingClap }}</span>
               <b-icon icon="sign-language" size="is-small"></b-icon>
             </a>
-            <a class="button is-primary is-inverted">
+            <a class="button is-primary is-inverted" @click="toDetailPage(post['id'])">
               <span>Comments</span>
               <b-icon icon="comments" size="is-small"></b-icon>
             </a>
@@ -31,21 +31,18 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import { getImageUrls } from '../helpers/image'
 import PostMixin from './Mixins/PostMixin'
 
 export default {
   data () {
     return {
       showOriginal: true,
-      originalImage: '',
-      paintedImage: ''
+      imgUrls: {}
     }
   },
   created () {
-    const common = Axios.defaults.baseURL + '/image'
-    this.originalImage = common + `/original/${this.post['id']}`
-    this.paintedImage = common + `/painted/${this.post['id']}`
+    this.imgUrls = getImageUrls(this.post['id'])
   },
   mixins: [
     PostMixin
