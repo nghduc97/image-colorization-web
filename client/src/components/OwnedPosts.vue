@@ -1,17 +1,10 @@
 <template>
   <section>
-    <section class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            Owned Posts
-          </h1>
-          <h2 class="subtitle">
-            View posts you have posted on the forum.
-          </h2>
-        </div>
-      </div>
-    </section>
+    <hero
+      title="Owned Posts"
+      subtitle="View posts you have posted on the forum."
+      >
+    </hero>
 
     <section class="section">
       <h1 class="title" style="display: inline-block">Image Posts</h1>
@@ -33,10 +26,12 @@
 
 <script>
 import PostList from './PostList'
+import Hero from './Hero'
 
 export default {
   components: {
-    'post-list': PostList
+    'post-list': PostList,
+    'hero': Hero
   }
 }
 </script>

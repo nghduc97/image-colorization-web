@@ -10,6 +10,16 @@ import utils.file as file
 post_blueprint = flask.Blueprint("post", __name__, url_prefix="/api/post")
 
 
+@post_blueprint.route('/', methods=['GET'])
+def get_post_detail():
+    post_id = int(flask.request.args.get('post_id'))
+
+    data = db.query_fetchone('get_post_by_id', {
+        'id': post_id
+    })
+    return flask.jsonify(data)
+
+
 @post_blueprint.route('/', methods=['POST'])
 @jwt.jwt_required
 def create_post():

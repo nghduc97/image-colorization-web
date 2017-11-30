@@ -1,7 +1,7 @@
-import Vue from 'vue'
 import Axios from 'axios'
+import router from '../../router'
 
-export default Vue.mixin({
+export default {
   props: {
     post: Object
   },
@@ -28,6 +28,9 @@ export default Vue.mixin({
       // throttle
       if (this.clapUpload) clearTimeout(this.clapUpload)
       this.clapUpload = setTimeout(() => this.uploadClap(), 1000)
+    },
+    toDetailPage (postId) {
+      router.push(`/post/${postId}`)
     }
   }
-})
+}

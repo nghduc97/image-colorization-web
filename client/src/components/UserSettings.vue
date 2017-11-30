@@ -1,17 +1,10 @@
 <template>
   <section>
-    <section class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">
-            User Settings
-          </h1>
-          <h2 class="subtitle">
-            Settings for you account
-          </h2>
-        </div>
-      </div>
-    </section>
+    <hero
+      title="User Settings"
+      subtitle="Settings for you account"
+      >
+    </hero>
     <section class="section">
       <div class="container">
         <h2 class="title">Account Details</h2>
@@ -39,6 +32,7 @@
 <script>
 import Axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
+import Hero from './Hero'
 
 export default {
   data () {
@@ -79,6 +73,9 @@ export default {
   },
   mounted () {
     this.fillSettings()
+  },
+  components: {
+    'hero': Hero
   }
 }
 </script>
