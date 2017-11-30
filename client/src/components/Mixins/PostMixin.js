@@ -1,7 +1,6 @@
-import Vue from 'vue'
 import Axios from 'axios'
 
-export default Vue.mixin({
+export default {
   props: {
     post: Object
   },
@@ -30,4 +29,4 @@ export default Vue.mixin({
       this.clapUpload = setTimeout(() => this.uploadClap(), 1000)
     }
   }
-})
+}
