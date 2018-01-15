@@ -1,40 +1,45 @@
 <template>
   <div id="app">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-
-    <toolbar ref="toolbar" :sidebarRef="sidebarRef"></toolbar>
-    <sidebar ref="sidebar"></sidebar>
+    <toolbar></toolbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Toolbar from './components/Toolbar'
-import Sidebar from './components/Sidebar'
 
 export default {
   name: 'app',
   created () {
     this.$store.dispatch('auth/verifyToken')
   },
-  mounted () {
-    this.sidebarRef = this.$refs.sidebar
-  },
-  data () {
-    return {
-      sidebarRef: this.sidebarRef
-    }
-  },
   components: {
-    'sidebar': Sidebar,
     'toolbar': Toolbar
   }
 }
 </script>
 
-<style>
-  .md-raised {
-    box-shadow: none !important;
-  }
+<style lang="scss">
+// font awesome
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+// bulma config
+@import "./color";
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+// global styles
+.input:focus {
+  box-shadow: none;
+}
+
+textarea {
+  resize: none !important;
+}
+
+input[type="file"] {
+  display: none !important;
+}
 </style>

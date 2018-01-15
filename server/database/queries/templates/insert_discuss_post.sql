@@ -4,4 +4,5 @@ WITH post AS (
     RETURNING id
 )
 INSERT INTO discuss_posts (post_id, content)
-VALUES ((SELECT id FROM post), :content);
+VALUES ((SELECT id FROM post), :content)
+RETURNING discuss_posts.post_id;

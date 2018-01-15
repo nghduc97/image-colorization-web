@@ -4,12 +4,68 @@ from datetime import datetime
 import flask
 import flask_jwt_extended as jwt
 import database.queries as db
+import utils.file as file
 
 
 post_blueprint = flask.Blueprint("post", __name__, url_prefix="/api/post")
 
 
-@post_blueprint.route('/top', methods=["GET"])
+@post_blueprint.route('/', methods=['GET'])
+def get_post_detail():
+    post_id = int(flask.request.args.get('post_id'))
+
+    data = db.query_fetchone('get_post_by_id', {
+        'id': post_id
+    })
+    return flask.jsonify(data)
+
+
+@post_blueprint.route('/', methods=['POST'])
+@jwt.jwt_required
+def create_post():
+    body = flask.request.get_json()
+
+    query = ''
+    params = {
+        'hidden': False,
+        'time': datetime.utcnow(),
+        'uploader_id': jwt.get_jwt_identity(),
+        'title': body['title'],
+        'total_claps': 0,
+    }
+
+    if body['type'] == 1:
+        params['status'] = 'queue'
+        query = 'insert_image_post'
+    elif body['type'] == 2:
+        params['content'] = body['content']
+        query = 'insert_discuss_post'
+
+    data = db.query_fetchone(query, params)
+    if body['type'] == 1:
+        file.write_base64_image_to_file(str(data['post_id']), body['file_b64'])
+
+    return flask.jsonify(data)
+
+
+@post_blueprint.route('/owned', methods=['GET'])
+@jwt.jwt_required
+def get_owned_posts():
+    post_type = int(flask.request.args.get('type', 1))
+    offset = int(flask.request.args.get('offset', 0))
+    limit = int(flask.request.args.get('limit', 5))
+    user_id = jwt.get_jwt_identity()
+
+    data = db.query_fetchall('get_posts_by_user', {
+        'type': post_type,
+        'offset': offset,
+        'limit': limit,
+        'user_id': user_id,
+    })
+    return flask.jsonify(data)
+
+
+@post_blueprint.route('/top', methods=['GET'])
 def get_top_posts():
     order_by = flask.request.args.get('sortby', 'time')
     post_type = int(flask.request.args.get('type', 1))

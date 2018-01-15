@@ -25,8 +25,10 @@ def login():
     password = body['password']
 
     user = db.query_fetchone('get_user_by_username', {'username': username})
-    security.check_password_hash(user['hashed_password'], password)
-    return _create_user_response(user)
+    if security.check_password_hash(user['hashed_password'], password):
+        return _create_user_response(user)
+
+    flask.abort(400, 'incorrect username or password')
 
 
 @user_blueprint.route('/register', methods=['POST'])
@@ -43,6 +45,30 @@ def register():
         'authority': 4,
     })
 
+    return _create_user_response(user)
+
+
+@user_blueprint.route('/info-change', methods=['POST'])
+@jwt.jwt_required
+def info_change():
+    body = flask.request.get_json()
+    display_name = body['display_name']
+    old_password = body['old_password']
+    new_password = body['new_password']
+
+    user_id = jwt.get_jwt_identity()
+    user = db.query_fetchone('get_user_by_id', {'id': user_id})
+    if not security.check_password_hash(user['hashed_password'], old_password):
+        flask.abort(401)
+
+    hash_password = user['hashed_password']
+    if new_password:
+        hash_password = security.generate_password_hash(new_password, salt_length=32)
+
+    user = db.query_fetchone('update_user_info', {
+        'display_name': display_name,
+        'hashed_password': hash_password,
+    })
     return _create_user_response(user)
 
 

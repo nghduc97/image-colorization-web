@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../../router'
 
 export default {
   namespaced: true,
@@ -8,8 +9,7 @@ export default {
   mutations: {
     receiveToken (state, data) {
       localStorage.setItem('authToken', data['token'])
-      delete data['token']
-      state.userInfo = data
+      state.userInfo = data['user_info']
     },
     clearToken (state) {
       localStorage.removeItem('authToken')
@@ -24,7 +24,7 @@ export default {
           context.commit('receiveToken', data)
           resolve(context.state['userInfo'])
         } catch (err) {
-          console.error(err)
+          reject(err)
         }
       })
     },
@@ -35,7 +35,7 @@ export default {
           context.commit('receiveToken', data)
           resolve(context.state['userInfo'])
         } catch (err) {
-          console.error(err)
+          reject(err)
         }
       })
     },
@@ -51,8 +51,9 @@ export default {
         context.commit('receiveToken', data)
         console.log('Valid token found in local storage')
       } catch (err) {
-        console.warn('Invalid token found in local storage')
-        console.warn(err)
+        console.log('Invalid token found in local storage')
+        localStorage.removeItem('authToken')
+        router.replace('/')
       }
     }
   }

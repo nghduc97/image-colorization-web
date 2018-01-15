@@ -1,43 +1,68 @@
 <template>
-  <span class="image-post">
-    <md-toolbar class="md-accent">
-      <h3 class="md-title">{{ post['title'] }}</h3>
-    </md-toolbar>
-    <md-card>
-      <md-card-media>
-        <img :src="'data:image/jpg;base64,' + post['original_image']">
-      </md-card-media>
-      <md-card-media>
-        <img :src="'data:image/jpg;base64,' + post['original_image']">
-      </md-card-media>
-    </md-card>
-  </span>
+  <div class="card">
+    <div class="card-image">
+      <figure class="image is-1by1" @click="showOriginal ^= true">
+        <img class="painted-image" :src="imgUrls.paintedImage">
+        <transition name="fade">
+          <img class="original-image" v-show="showOriginal" :src="imgUrls.originalImage">
+        </transition>
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <div class="content">
+            <p class="title is-4">{{ post['title'] }}</p>
+            <p class="subtitle is-6">{{ post['time'] }}</p>
+
+            <a class="button is-primary is-inverted" @click="clap">
+              <span>{{ post['total_claps'] + pendingClap }}</span>
+              <b-icon icon="sign-language" size="is-small"></b-icon>
+            </a>
+            <a class="button is-primary is-inverted" @click="toDetailPage(post['id'])">
+              <span>Comments</span>
+              <b-icon icon="comments" size="is-small"></b-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { getImageUrls } from '../helpers/image'
+import PostMixin from './Mixins/PostMixin'
+
 export default {
-  props: ['post']
+  data () {
+    return {
+      showOriginal: true,
+      imgUrls: {}
+    }
+  },
+  created () {
+    this.imgUrls = getImageUrls(this.post['id'])
+  },
+  mixins: [
+    PostMixin
+  ]
 }
 </script>
 
-<style lang="scss">
-  .image-post {
-    margin: 1em 1em;
+<style scoped lang="scss">
+.original-image {
+  background-color: gray; // for prototype purpose
+}
 
-    .md-card {
-      width: 20em;
-      height: 40em;
+.painted-image {
+  background-color: black; // for prototype purpose
+}
 
-      .md-card-media {
-        height: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        img {
-          margin: 0;
-        }
-      }
-    }
-  }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
 </style>
